@@ -1,0 +1,770 @@
+/* Reset Básico & Fontes */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #141414; /* Fundo escuro */
+    color: #e5e5e5; /* Texto claro */
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o footer fique no final */
+}
+
+a {
+    color: #5fa8d3; /* Azul mais suave para links */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #a1cbe4;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #1c1c1c;
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
+    border-bottom: 1px solid #333;
+    position: sticky; /* Fixa o header no topo */
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    font-weight: 700;
+    margin-bottom: 0.5rem; /* Espaço abaixo em telas pequenas */
+    margin-right: 1rem; /* Espaço à direita */
+}
+header h1 a {
+    color: #e50914; /* Vermelho Netflix como destaque */
+    text-decoration: none;
+}
+
+
+header nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem; /* Espaço entre os elementos da nav */
+}
+
+#user-status {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+#user-status a, #user-status span {
+    color: #fff;
+}
+#user-status a:hover {
+    color: #aaa;
+}
+#logout-button {
+    background: none;
+    border: none;
+    color: #5fa8d3;
+    cursor: pointer;
+    font-size: 1em; /* Mesmo tamanho do texto */
+    padding: 0;
+    font-family: inherit; /* Usa a mesma fonte */
+}
+#logout-button:hover {
+    color: #a1cbe4;
+}
+/* Estilo específico para o link do perfil */
+#user-status a.profile-link {
+    font-weight: 500;
+}
+
+
+.search-container {
+    display: flex;
+    min-width: 200px; /* Largura mínima */
+    flex-grow: 1; /* Tenta ocupar espaço disponível */
+    max-width: 400px; /* Limita largura máxima */
+}
+
+#search-input {
+    padding: 0.6rem 0.9rem;
+    border: 1px solid #333;
+    border-radius: 4px 0 0 4px;
+    background-color: #333;
+    color: #e5e5e5;
+    font-size: 0.95rem;
+    outline: none;
+    flex-grow: 1; /* Input ocupa o espaço */
+    transition: border-color 0.3s ease;
+}
+#search-input::placeholder {
+    color: #aaa;
+}
+#search-input:focus {
+    border-color: #5fa8d3;
+}
+
+#search-button {
+    padding: 0.6rem 1rem;
+    border: 1px solid #333;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    background-color: #e50914;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    display: flex; /* Para centralizar o ícone */
+    align-items: center;
+    justify-content: center;
+}
+#search-button:hover {
+    background-color: #f40612;
+}
+
+/* Conteúdo Principal (Index e outras páginas) */
+main {
+    padding: 2rem 5%;
+    flex-grow: 1; /* Faz o main ocupar o espaço restante */
+}
+
+main h2 { /* Estilo base para H2 dentro de main */
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 400;
+    border-left: 4px solid #e50914;
+    padding-left: 0.8rem;
+    color: #f5f5f5;
+}
+
+/* Grid de Itens (Index) */
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); /* Responsivo robusto */
+    gap: 1.5rem;
+}
+
+.item-card {
+    background-color: #1c1c1c;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.item-card:hover,
+.item-card:focus-within { /* Adiciona foco para acessibilidade */
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.item-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3; /* Proporção comum de poster */
+    object-fit: cover;
+    background-color: #333; /* Cor de fundo enquanto carrega */
+}
+
+.item-card .info {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.5rem; /* Espaço entre elementos no info */
+}
+
+.item-card h3 {
+    font-size: 1rem;
+    font-weight: 500; /* Pouco mais de peso */
+    color: #f5f5f5;
+    /* Limita o texto a 2 linhas */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 2.4em; /* Garante espaço para 2 linhas */
+}
+
+.item-card .rating {
+    font-size: 0.9rem;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    margin-top: auto; /* Empurra para baixo */
+}
+.item-card .rating .fa-star {
+    color: #f5c518; /* Amarelo IMDB */
+    margin-right: 0.4rem;
+}
+
+.item-card .item-type {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permite scroll se conteúdo for grande */
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px); /* Efeito de desfoque (suporte variado) */
+    padding: 20px; /* Espaço nas bordas */
+}
+
+.modal-content {
+    background-color: #1f1f1f; /* Um pouco diferente do card */
+    margin: 5% auto;
+    padding: 30px 40px;
+    border: 1px solid #333;
+    width: 90%;
+    max-width: 750px;
+    border-radius: 10px;
+    position: relative;
+    animation: slideIn 0.4s ease-out;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-30px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2.2rem;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #fff;
+    transform: scale(1.1);
+    outline: none; /* Remove outline padrão do foco */
+}
+
+#modal-body {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+#modal-body img {
+    flex-shrink: 0; /* Impede que a imagem encolha */
+    width: 200px; /* Largura fixa para a imagem */
+    max-width: 40%; /* Não passa de 40% da largura do modal-body */
+    height: auto;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+#modal-body .details {
+    flex-grow: 1; /* Ocupa o espaço restante */
+}
+
+#modal-body .details h2 {
+    margin-bottom: 15px;
+    color: #e50914;
+    font-size: 2rem;
+    font-weight: 700;
+    border-left: none; /* Remove borda herdada */
+    padding-left: 0;
+}
+
+#modal-body .details p {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: #ccc;
+}
+#modal-body .details strong {
+    color: #fff;
+    font-weight: 500;
+}
+#modal-body .details p:last-child {
+    margin-bottom: 0; /* Remove margem do último parágrafo */
+}
+
+/* Seção de Avaliação */
+#rating-section {
+    border-top: 1px solid #444;
+    padding-top: 25px;
+    margin-top: 30px;
+}
+#rating-section h3 {
+    margin-bottom: 15px;
+    font-weight: 500;
+    color: #f5f5f5;
+}
+
+.stars {
+    cursor: pointer;
+    font-size: 2rem; /* Tamanho das estrelas */
+    color: #555; /* Estrelas vazias */
+    display: flex; /* Alinha estrelas */
+    gap: 5px; /* Espaço entre estrelas */
+    margin-bottom: 10px; /* Espaço abaixo das estrelas */
+}
+
+.stars i {
+    transition: color 0.2s ease, transform 0.1s ease;
+}
+.stars i:hover {
+    transform: scale(1.15); /* Aumenta um pouco no hover */
+}
+
+.stars i.fas { /* Estrelas preenchidas */
+    color: #f5c518;
+}
+
+/* Efeito Hover Coletivo */
+.stars:hover i {
+    color: #b18d13; /* Cor de hover mais sutil */
+}
+/* Restaura cor das estrelas seguintes */
+.stars i:hover ~ i {
+   color: #555;
+}
+/* Cor da estrela específica sob hover */
+.stars i:hover {
+    color: #f5c518 !important; /* Garante que a estrela sob hover fique amarela */
+}
+
+
+#rating-message {
+    margin-top: 10px;
+    min-height: 1.2em; /* Reserva espaço para a mensagem */
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+#remove-rating-button {
+    background-color: #6c757d; /* Cinza para ação menos destrutiva */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+#remove-rating-button:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+}
+
+/* Páginas de Autenticação */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Ocupa espaço vertical */
+    /* Exemplo de fundo gradiente escuro */
+    background: linear-gradient(to bottom, #181818, #101010);
+}
+
+.auth-container {
+    background-color: rgba(28, 28, 28, 0.95); /* Fundo do container */
+    padding: 2.5rem 3rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.7);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    margin: 2rem; /* Margem para não colar nas bordas em telas pequenas */
+}
+
+.auth-container h1 {
+    color: #e50914;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #aaa;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: #e5e5e5;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.form-group input:focus {
+    outline: none;
+    border-color: #e50914;
+    box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.3); /* Glow sutil no foco */
+}
+
+.auth-container button[type="submit"] {
+    width: 100%;
+    padding: 0.9rem;
+    background-color: #e50914;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-top: 1.5rem; /* Espaço acima do botão */
+}
+
+.auth-container button[type="submit"]:hover {
+    background-color: #f40612;
+}
+.auth-container button[type="submit"]:active {
+    transform: scale(0.98); /* Efeito de clique */
+}
+
+
+.auth-container p {
+    margin-top: 1.5rem;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.auth-container p a {
+    color: #fff;
+    font-weight: 500;
+}
+.auth-container p a:hover {
+    color: #ccc;
+}
+
+/* --- Estilos da Página de Perfil --- */
+
+.profile-page {
+    /* Usa o padding padrão do main */
+}
+
+.profile-page h2#profile-title {
+    /* Usa o estilo base de h2, mas pode ser sobrescrito */
+    margin-bottom: 2rem; /* Mais espaço abaixo do título do perfil */
+    font-size: 2rem; /* Tamanho maior */
+    font-weight: 500;
+    /* Exemplo: mudar a cor da borda */
+    border-left-color: #5fa8d3;
+}
+
+#rated-items-section {
+    margin-top: 2rem; /* Espaço acima da seção de avaliados */
+}
+
+#rated-items-section h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    color: #e0e0e0;
+}
+
+/* Ajusta a grade para itens avaliados */
+.rated-items-grid {
+    /* Herda o estilo de .items-grid por padrão */
+    /* Pode ajustar se necessário */
+     gap: 1.2rem;
+    /* grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); */ /* Ou cards menores */
+}
+
+/* Estilo específico para o card no perfil */
+.rated-item-card {
+    /* Herda estilos de .item-card */
+    background-color: #222; /* Fundo ligeiramente diferente */
+     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4); /* Sombra mais sutil */
+}
+.rated-item-card:hover,
+.rated-item-card:focus-within {
+     transform: translateY(-3px) scale(1.02); /* Efeito hover mais sutil */
+     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+
+.rated-item-card .info {
+    /* Ajustes no padding ou espaçamento interno */
+    padding: 0.8rem;
+    text-align: center; /* Centraliza o texto no card do perfil */
+}
+
+.rated-item-card h3 {
+     /* Talvez fonte menor se o card for menor */
+    font-size: 0.95rem;
+    min-height: 2.3em; /* Ajusta altura mínima */
+}
+
+/* Estilo para mostrar a nota do usuário */
+.rated-item-card .user-rating {
+    font-size: 0.9rem;
+    font-weight: 700; /* Destaca a nota */
+    color: #f5c518; /* Amarelo para a nota */
+    margin-top: 0.5rem; /* Espaço acima da nota */
+}
+
+.profile-page .back-link {
+    display: inline-block;
+    margin-top: 2.5rem; /* Mais espaço antes do link de voltar */
+    padding: 0.6rem 1.2rem;
+    background-color: #333;
+    color: #eee;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+}
+.profile-page .back-link:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+
+/* Mensagens de Feedback (Geral) */
+.message {
+    margin-top: 1rem;
+    font-weight: 500;
+    min-height: 1.2em; /* Evita pulos de layout */
+    font-size: 0.9em;
+    padding: 5px 8px; /* Adiciona um leve padding */
+    border-radius: 3px;
+}
+.message.error {
+    color: #f8d7da;
+    background-color: rgba(114, 28, 36, 0.5); /* Fundo semi-transparente */
+}
+.message.success {
+    color: #d4edda;
+    background-color: rgba(21, 87, 36, 0.5); /* Fundo semi-transparente */
+}
+
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1.5rem 5%;
+    margin-top: 3rem; /* Garante espaço acima do footer */
+    background-color: #0c0c0c; /* Footer mais escuro */
+    border-top: 1px solid #222;
+    font-size: 0.85rem;
+    color: #888; /* Texto mais sutil */
+}
+footer a {
+    color: #aaa; /* Links do footer mais discretos */
+}
+footer a:hover {
+    color: #fff;
+}
+
+/* ------------------------- */
+/* Media Queries (FINAL)     */
+/* ------------------------- */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem 4%;
+    }
+    header nav {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 0.8rem;
+        gap: 0.8rem;
+    }
+    .search-container {
+       max-width: none;
+       min-width: 150px;
+    }
+
+    main {
+        padding: 1.5rem 4%;
+    }
+    main h2 { /* Estilo base para h2 em mobile */
+        font-size: 1.6rem;
+    }
+
+    .items-grid { /* Grid principal */
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 25px;
+        margin: 10% auto;
+    }
+     #modal-body {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+    }
+    #modal-body img {
+        width: 150px;
+        max-width: 50%;
+    }
+    #modal-body .details h2 {
+         font-size: 1.8rem; /* Ajuste para mobile */
+         text-align: center;
+    }
+    .stars {
+        justify-content: center; /* Centraliza estrelas no modal */
+        font-size: 1.8rem; /* Estrelas um pouco menores */
+    }
+
+    .auth-container {
+        padding: 2rem 1.5rem;
+    }
+
+    /* Perfil Mobile */
+    .profile-page h2#profile-title {
+        font-size: 1.8rem;
+    }
+     #rated-items-section h3 {
+        font-size: 1.3rem;
+    }
+     .rated-items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 1rem;
+     }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.6rem;
+        text-align: center;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 0.8rem; /* Aumenta espaço abaixo do título */
+    }
+    header nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    #user-status {
+        justify-content: center;
+        order: 2; /* Coloca status abaixo da busca */
+        margin-top: 0.5rem;
+    }
+     .search-container {
+        order: 1; /* Coloca busca acima do status */
+    }
+
+    main h2 { /* Estilo base para h2 em mobile pequeno */
+        font-size: 1.4rem;
+        border-left-width: 3px;
+        padding-left: 0.6rem;
+    }
+
+    .items-grid { /* Grid principal */
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.8rem;
+    }
+     .item-card h3 {
+        font-size: 0.9rem;
+        min-height: 2.2em;
+    }
+
+     .modal-content {
+         padding: 20px 15px;
+     }
+      #modal-body .details h2 {
+         font-size: 1.6rem; /* Ajuste modal mobile pequeno */
+     }
+     #rating-section .stars {
+        font-size: 1.7rem;
+        gap: 3px;
+     }
+
+     .auth-container {
+        padding: 1.5rem 1rem;
+        margin: 1rem; /* Reduz margem externa */
+     }
+     .auth-container h1 {
+         font-size: 1.8rem; /* Reduz título auth */
+         margin-bottom: 1.5rem;
+     }
+     .form-group input {
+         padding: 0.8rem 0.9rem;
+     }
+      .auth-container button[type="submit"] {
+          padding: 0.8rem;
+          font-size: 1rem;
+      }
+
+      /* Perfil Mobile Pequeno */
+       .profile-page {
+        padding: 1.5rem 4%;
+    }
+     .profile-page h2#profile-title {
+        font-size: 1.6rem;
+    }
+     #rated-items-section h3 {
+        font-size: 1.2rem;
+    }
+     .rated-items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 0.7rem;
+     }
+      .rated-item-card .info {
+         padding: 0.6rem;
+      }
+       .rated-item-card h3 {
+         font-size: 0.85rem;
+         min-height: 2.1em; /* Ajuste fino */
+     }
+      .rated-item-card .user-rating {
+         font-size: 0.8rem;
+     }
+     .profile-page .back-link {
+         width: 100%; /* Ocupa largura toda */
+         text-align: center;
+         padding: 0.7rem;
+     }
+}

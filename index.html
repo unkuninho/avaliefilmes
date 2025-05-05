@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Site de Avaliações</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">Meu Site de Avaliações</a></h1>
+        <nav>
+            <div id="user-status">
+                <!-- Status do usuário (Login/Logout) será inserido aqui pelo JS -->
+                <a href="login.html">Login</a> | <a href="register.html">Cadastro</a>
+            </div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Buscar filmes, séries, animes...">
+                <button id="search-button" aria-label="Buscar"><i class="fas fa-search"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h2 id="main-section-title">Populares</h2>
+        <div id="items-container" class="items-grid">
+            <!-- Cards de filmes/séries/animes serão inseridos aqui pelo JS -->
+            <p>Carregando itens...</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Dados fornecidos por <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDb</a></p>
+        <p>© 2024 Seu Site de Avaliações</p>
+    </footer>
+
+    <!-- Modal para Detalhes e Avaliação -->
+    <div id="details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" role="button" aria-label="Fechar Modal">×</span>
+            <div id="modal-body">
+                <!-- Conteúdo do Modal será inserido aqui -->
+            </div>
+            <div id="rating-section" style="display: none;"> <!-- Escondido por padrão -->
+                <h3>Sua Avaliação:</h3>
+                <div class="stars" role="radiogroup" aria-label="Avaliação de 1 a 10 estrelas">
+                    <i class="far fa-star" data-value="1" role="radio" aria-label="1 estrela" tabindex="0"></i>
+                    <i class="far fa-star" data-value="2" role="radio" aria-label="2 estrelas" tabindex="0"></i>
+                    <i class="far fa-star" data-value="3" role="radio" aria-label="3 estrelas" tabindex="0"></i>
+                    <i class="far fa-star" data-value="4" role="radio" aria-label="4 estrelas" tabindex="0"></i>
+                    <i class="far fa-star" data-value="5" role="radio" aria-label="5 estrelas" tabindex="0"></i>
+                    <i class="far fa-star" data-value="6" role="radio" aria-label="6 estrelas" tabindex="0"></i>
+                    <i class="far fa-star" data-value="7" role="radio" aria-label="7 estrelas" tabindex="0"></i>
+                    <i class="far fa-star" data-value="8" role="radio" aria-label="8 estrelas" tabindex="0"></i>
+                    <i class="far fa-star" data-value="9" role="radio" aria-label="9 estrelas" tabindex="0"></i>
+                    <i class="far fa-star" data-value="10" role="radio" aria-label="10 estrelas" tabindex="0"></i>
+                </div>
+                <p id="rating-message" class="message" aria-live="polite"></p>
+                <button id="remove-rating-button" style="display: none;">Remover Avaliação</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
