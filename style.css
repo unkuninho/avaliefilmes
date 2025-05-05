@@ -1,4 +1,34 @@
-/* Reset Básico & Fontes */
+/* === ROOT VARIABLES === */
+:root {
+    --bg-primary: #0f0f0f; /* Um preto um pouco mais profundo */
+    --bg-secondary: #1a1a1a; /* Para cards e elementos secundários */
+    --bg-tertiary: #2c2c2c; /* Para inputs e detalhes */
+    --text-primary: #f0f0f0; /* Branco suave */
+    --text-secondary: #a0a0a0; /* Cinza para texto menos importante */
+    --accent-primary: #e50914; /* Vermelho TMDB/Netflix */
+    --accent-secondary: #6c5ce7; /* Roxo/Azul vibrante como segundo acento (opcional) */
+    --link-color: #6fa8dc; /* Azul link */
+    --link-hover: #9fcefa;
+    --star-color: #f5c518; /* Amarelo estrela */
+    --danger-bg: rgba(114, 28, 36, 0.7);
+    --danger-text: #f8d7da;
+    --success-bg: rgba(21, 87, 36, 0.7);
+    --success-text: #d4edda;
+
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.5);
+
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* === GLOBAL STYLES === */
 * {
     margin: 0;
     padding: 0;
@@ -7,27 +37,38 @@
 
 html {
     scroll-behavior: smooth;
+    font-size: 16px; /* Base font size */
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #141414; /* Fundo escuro */
-    color: #e5e5e5; /* Texto claro */
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    background: linear-gradient(180deg, var(--bg-primary) 0%, #121212 100%); /* Fundo com gradiente sutil */
+    color: var(--text-primary);
     line-height: 1.6;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Garante que o footer fique no final */
+    min-height: 100vh;
+    overflow-x: hidden; /* Previne scroll horizontal */
 }
 
 a {
-    color: #5fa8d3; /* Azul mais suave para links */
+    color: var(--link-color);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color var(--transition-medium);
 }
 
-a:hover {
-    color: #a1cbe4;
+a:hover, a:focus {
+    color: var(--link-hover);
+    outline: none; /* Remove outline padrão, mas garante :focus-visible */
 }
+
+/* Adiciona outline apenas para navegação por teclado */
+a:focus-visible {
+    outline: 2px solid var(--link-hover);
+    outline-offset: 2px;
+    border-radius: var(--border-radius-sm);
+}
+
 
 img {
     max-width: 100%;
@@ -35,201 +76,240 @@ img {
     display: block;
 }
 
-/* Cabeçalho */
+/* === HEADER === */
 header {
-    background-color: #1c1c1c;
+    background-color: rgba(15, 15, 15, 0.85); /* Header semi-transparente */
+    backdrop-filter: blur(10px); /* Efeito de desfoque */
     padding: 1rem 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
-    border-bottom: 1px solid #333;
-    position: sticky; /* Fixa o header no topo */
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Borda inferior sutil */
+    position: sticky;
     top: 0;
     z-index: 100;
+    gap: 1rem; /* Espaço entre logo, nav, busca */
 }
 
 header h1 {
     font-weight: 700;
-    margin-bottom: 0.5rem; /* Espaço abaixo em telas pequenas */
-    margin-right: 1rem; /* Espaço à direita */
+    font-size: 1.8rem; /* Um pouco maior */
+    margin: 0; /* Remove margens default */
 }
 header h1 a {
-    color: #e50914; /* Vermelho Netflix como destaque */
+    color: var(--accent-primary);
     text-decoration: none;
+    transition: opacity var(--transition-fast);
 }
-
+header h1 a:hover {
+    opacity: 0.9;
+}
 
 header nav {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1rem; /* Espaço entre os elementos da nav */
+    gap: 1rem; /* Espaço consistente */
 }
 
 #user-status {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.8rem; /* Espaço entre itens do status */
+    font-size: 0.9rem;
 }
 
 #user-status a, #user-status span {
-    color: #fff;
+    color: var(--text-primary);
+    opacity: 0.9;
 }
 #user-status a:hover {
-    color: #aaa;
+    color: var(--text-primary); /* Mantém branco mas aumenta opacidade */
+    opacity: 1;
 }
 #logout-button {
     background: none;
     border: none;
-    color: #5fa8d3;
+    color: var(--link-color);
     cursor: pointer;
-    font-size: 1em; /* Mesmo tamanho do texto */
+    font-size: inherit; /* Herda tamanho */
     padding: 0;
-    font-family: inherit; /* Usa a mesma fonte */
+    font-family: inherit;
+    transition: color var(--transition-medium);
 }
-#logout-button:hover {
-    color: #a1cbe4;
+#logout-button:hover, #logout-button:focus {
+    color: var(--link-hover);
 }
-/* Estilo específico para o link do perfil */
 #user-status a.profile-link {
     font-weight: 500;
 }
 
-
 .search-container {
     display: flex;
-    min-width: 200px; /* Largura mínima */
-    flex-grow: 1; /* Tenta ocupar espaço disponível */
-    max-width: 400px; /* Limita largura máxima */
+    min-width: 220px;
+    flex-grow: 1;
+    max-width: 450px;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--border-radius-md);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
 }
 
 #search-input {
-    padding: 0.6rem 0.9rem;
-    border: 1px solid #333;
-    border-radius: 4px 0 0 4px;
-    background-color: #333;
-    color: #e5e5e5;
+    padding: 0.7rem 1rem;
+    border: none; /* Remove borda padrão */
+    border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+    background-color: transparent; /* Usa fundo do container */
+    color: var(--text-primary);
     font-size: 0.95rem;
     outline: none;
-    flex-grow: 1; /* Input ocupa o espaço */
-    transition: border-color 0.3s ease;
+    flex-grow: 1;
+    transition: box-shadow var(--transition-medium);
 }
 #search-input::placeholder {
-    color: #aaa;
+    color: var(--text-secondary);
+    opacity: 0.7;
 }
 #search-input:focus {
-    border-color: #5fa8d3;
+     /* Leve brilho interno ao focar */
+    box-shadow: inset 0 0 0 2px rgba(229, 9, 20, 0.4);
 }
 
 #search-button {
-    padding: 0.6rem 1rem;
-    border: 1px solid #333;
-    border-left: none;
-    border-radius: 0 4px 4px 0;
-    background-color: #e50914;
+    padding: 0.7rem 1.1rem;
+    border: none;
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+    background-color: var(--accent-primary);
     color: white;
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color 0.3s ease;
-    display: flex; /* Para centralizar o ícone */
+    transition: background-color var(--transition-medium), transform var(--transition-fast);
+    display: flex;
     align-items: center;
     justify-content: center;
 }
-#search-button:hover {
-    background-color: #f40612;
+#search-button:hover, #search-button:focus {
+    background-color: #ff1a27; /* Vermelho um pouco mais claro */
+}
+#search-button:active {
+    transform: scale(0.95);
+}
+/* Focus visible para o botão de busca */
+#search-button:focus-visible {
+    outline: 2px solid var(--link-hover);
+    outline-offset: 2px;
 }
 
-/* Conteúdo Principal (Index e outras páginas) */
+
+/* === MAIN CONTENT & CARDS === */
 main {
-    padding: 2rem 5%;
-    flex-grow: 1; /* Faz o main ocupar o espaço restante */
+    padding: 2.5rem 6%; /* Mais padding lateral */
+    flex-grow: 1;
 }
 
-main h2 { /* Estilo base para H2 dentro de main */
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-    font-weight: 400;
-    border-left: 4px solid #e50914;
-    padding-left: 0.8rem;
-    color: #f5f5f5;
+main h2 {
+    margin-bottom: 2rem; /* Mais espaço abaixo do título */
+    font-size: 2rem; /* Título maior */
+    font-weight: 600; /* Mais peso */
+    border-left: 5px solid var(--accent-primary);
+    padding-left: 1rem;
+    color: var(--text-primary);
 }
 
-/* Grid de Itens (Index) */
 .items-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); /* Responsivo robusto */
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); /* Cards um pouco maiores */
+    gap: 2rem; /* Mais espaço entre cards */
 }
 
 .item-card {
-    background-color: #1c1c1c;
-    border-radius: 8px;
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius-lg); /* Cantos mais arredondados */
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-sm);
+    position: relative; /* Para overlays ou pseudo-elementos futuros */
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Borda muito sutil */
+}
+/* Efeito de foco para acessibilidade */
+.item-card:focus-visible {
+     outline: 2px solid var(--accent-secondary); /* Usa a cor secundária para foco */
+     outline-offset: 3px;
+     box-shadow: var(--shadow-lg), 0 0 0 3px rgba(108, 92, 231, 0.3); /* Sombra e glow */
+     transform: scale(1.05);
 }
 
-.item-card:hover,
-.item-card:focus-within { /* Adiciona foco para acessibilidade */
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+.item-card:hover {
+    transform: scale(1.05); /* Aumenta mais no hover */
+    box-shadow: var(--shadow-lg);
+    z-index: 10; /* Traz para frente no hover */
 }
+
 
 .item-card img {
     width: 100%;
     height: auto;
-    aspect-ratio: 2 / 3; /* Proporção comum de poster */
+    aspect-ratio: 2 / 3;
     object-fit: cover;
-    background-color: #333; /* Cor de fundo enquanto carrega */
+    background-color: var(--bg-tertiary); /* Placeholder background */
+    transition: transform var(--transition-slow), filter var(--transition-medium); /* Transição na imagem */
+}
+.item-card:hover img {
+    /* transform: scale(1.03); */ /* Leve zoom na imagem no hover do card */
+     filter: brightness(1.1); /* Leve brilho */
 }
 
+
 .item-card .info {
-    padding: 1rem;
+    padding: 1rem 1.2rem; /* Mais padding interno */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 0.5rem; /* Espaço entre elementos no info */
+    gap: 0.6rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.2) 0%, transparent 50%); /* Gradiente sutil no info */
 }
 
 .item-card h3 {
-    font-size: 1rem;
-    font-weight: 500; /* Pouco mais de peso */
-    color: #f5f5f5;
-    /* Limita o texto a 2 linhas */
+    font-size: 1.05rem; /* Título do card um pouco maior */
+    font-weight: 500;
+    color: var(--text-primary);
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    min-height: 2.4em; /* Garante espaço para 2 linhas */
+    min-height: 2.5em; /* Altura para 2 linhas */
+    line-height: 1.25; /* Ajuste de entrelinha */
 }
 
 .item-card .rating {
     font-size: 0.9rem;
-    color: #aaa;
+    color: var(--text-secondary);
     display: flex;
     align-items: center;
-    margin-top: auto; /* Empurra para baixo */
+    margin-top: auto;
+    gap: 0.4rem; /* Espaço entre estrela e texto */
 }
 .item-card .rating .fa-star {
-    color: #f5c518; /* Amarelo IMDB */
-    margin-right: 0.4rem;
+    color: var(--star-color);
+    font-size: 1rem; /* Estrela um pouco maior */
 }
 
 .item-card .item-type {
-    font-size: 0.8rem;
-    color: #888;
+    font-size: 0.75rem; /* Menor */
+    color: var(--text-secondary);
+    opacity: 0.8;
     text-transform: uppercase;
-    font-weight: 300;
+    font-weight: 400; /* Pouco mais de peso */
+    letter-spacing: 0.5px; /* Leve espaçamento */
 }
 
 
-/* Modal */
+/* === MODAL === */
 .modal {
     display: none;
     position: fixed;
@@ -238,533 +318,508 @@ main h2 { /* Estilo base para H2 dentro de main */
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto; /* Permite scroll se conteúdo for grande */
-    background-color: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(5px); /* Efeito de desfoque (suporte variado) */
-    padding: 20px; /* Espaço nas bordas */
+    overflow-y: auto;
+    background-color: rgba(10, 10, 10, 0.7); /* Fundo mais escuro e menos transparente */
+    backdrop-filter: blur(8px);
+    padding: 40px 20px; /* Mais padding geral */
+    animation: fadeIn var(--transition-medium); /* Animação de entrada */
 }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .modal-content {
-    background-color: #1f1f1f; /* Um pouco diferente do card */
-    margin: 5% auto;
-    padding: 30px 40px;
-    border: 1px solid #333;
+    background-color: var(--bg-secondary);
+    margin: 3% auto; /* Menos margem no topo */
+    padding: 40px 50px; /* Mais padding interno */
+    border: 1px solid rgba(255, 255, 255, 0.1);
     width: 90%;
-    max-width: 750px;
-    border-radius: 10px;
+    max-width: 800px; /* Modal um pouco maior */
+    border-radius: var(--border-radius-lg);
     position: relative;
-    animation: slideIn 0.4s ease-out;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: scaleUp var(--transition-medium) ease-out; /* Animação de escala */
+    box-shadow: var(--shadow-lg);
 }
-
-@keyframes slideIn {
-    from { transform: translateY(-30px); opacity: 0; }
-    to   { transform: translateY(0); opacity: 1; }
+@keyframes scaleUp {
+    from { transform: scale(0.95); opacity: 0.5; }
+    to   { transform: scale(1); opacity: 1; }
 }
 
 .close-button {
-    color: #aaa;
+    color: var(--text-secondary);
     position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 2.2rem;
-    font-weight: bold;
+    top: 20px; /* Ajuste posicionamento */
+    right: 25px;
+    font-size: 2.5rem;
+    font-weight: 300; /* Mais leve */
     line-height: 1;
     cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: color var(--transition-medium), transform var(--transition-medium);
+    padding: 5px; /* Área de clique maior */
+    border-radius: 50%;
 }
-
-.close-button:hover,
-.close-button:focus {
-    color: #fff;
-    transform: scale(1.1);
-    outline: none; /* Remove outline padrão do foco */
+.close-button:hover, .close-button:focus {
+    color: var(--text-primary);
+    transform: rotate(90deg) scale(1.1); /* Gira e aumenta no hover */
+    background-color: rgba(255, 255, 255, 0.1); /* Fundo sutil no hover */
+    outline: none;
 }
 
 #modal-body {
     display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
+    gap: 40px; /* Mais espaço */
+    margin-bottom: 40px;
 }
 
 #modal-body img {
-    flex-shrink: 0; /* Impede que a imagem encolha */
-    width: 200px; /* Largura fixa para a imagem */
-    max-width: 40%; /* Não passa de 40% da largura do modal-body */
+    flex-shrink: 0;
+    width: 250px; /* Imagem maior no modal */
+    max-width: 40%;
     height: auto;
-    border-radius: 6px;
+    border-radius: var(--border-radius-md);
     object-fit: cover;
+    box-shadow: var(--shadow-md);
 }
 
 #modal-body .details {
-    flex-grow: 1; /* Ocupa o espaço restante */
+    flex-grow: 1;
 }
 
 #modal-body .details h2 {
-    margin-bottom: 15px;
-    color: #e50914;
-    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--accent-primary);
+    font-size: 2.4rem; /* Título bem maior */
     font-weight: 700;
-    border-left: none; /* Remove borda herdada */
+    border-left: none;
     padding-left: 0;
+    line-height: 1.2;
 }
 
 #modal-body .details p {
-    margin-bottom: 12px;
-    font-size: 0.95rem;
-    color: #ccc;
+    margin-bottom: 14px;
+    font-size: 1rem; /* Texto ligeiramente maior */
+    color: var(--text-secondary); /* Cinza mais claro para texto */
 }
 #modal-body .details strong {
-    color: #fff;
-    font-weight: 500;
+    color: var(--text-primary); /* Branco para destaque */
+    font-weight: 600;
 }
 #modal-body .details p:last-child {
-    margin-bottom: 0; /* Remove margem do último parágrafo */
+    margin-bottom: 0;
 }
 
-/* Seção de Avaliação */
+/* === Seção de Avaliação (Modal) === */
 #rating-section {
-    border-top: 1px solid #444;
-    padding-top: 25px;
-    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15); /* Linha divisória mais sutil */
+    padding-top: 30px;
+    margin-top: 40px;
 }
 #rating-section h3 {
-    margin-bottom: 15px;
-    font-weight: 500;
-    color: #f5f5f5;
+    margin-bottom: 18px;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--text-primary);
 }
 
 .stars {
     cursor: pointer;
-    font-size: 2rem; /* Tamanho das estrelas */
-    color: #555; /* Estrelas vazias */
-    display: flex; /* Alinha estrelas */
-    gap: 5px; /* Espaço entre estrelas */
-    margin-bottom: 10px; /* Espaço abaixo das estrelas */
+    font-size: 2.3rem; /* Estrelas maiores */
+    color: var(--bg-tertiary); /* Cor base mais escura */
+    display: flex;
+    gap: 8px; /* Mais espaço entre estrelas */
+    margin-bottom: 15px;
 }
 
 .stars i {
-    transition: color 0.2s ease, transform 0.1s ease;
+    transition: color var(--transition-fast), transform var(--transition-fast);
 }
 .stars i:hover {
-    transform: scale(1.15); /* Aumenta um pouco no hover */
+    transform: scale(1.18); /* Aumenta mais */
 }
 
-.stars i.fas { /* Estrelas preenchidas */
-    color: #f5c518;
+.stars i.fas {
+    color: var(--star-color);
+    filter: drop-shadow(0 0 3px rgba(245, 197, 24, 0.5)); /* Leve brilho na estrela */
 }
 
-/* Efeito Hover Coletivo */
+/* Efeito Hover Coletivo Melhorado */
 .stars:hover i {
-    color: #b18d13; /* Cor de hover mais sutil */
+    color: #7e6a1c; /* Cor de hover mais escura e menos saturada */
 }
-/* Restaura cor das estrelas seguintes */
 .stars i:hover ~ i {
-   color: #555;
+   color: var(--bg-tertiary); /* Restaura cor base */
 }
-/* Cor da estrela específica sob hover */
 .stars i:hover {
-    color: #f5c518 !important; /* Garante que a estrela sob hover fique amarela */
+    color: var(--star-color) !important; /* Garante cor principal na estrela exata */
+    transform: scale(1.2) !important; /* Garante escala maior */
 }
 
 
 #rating-message {
-    margin-top: 10px;
-    min-height: 1.2em; /* Reserva espaço para a mensagem */
-    font-size: 0.9em;
+    margin-top: 15px;
+    min-height: 1.4em;
+    font-size: 0.95em;
     font-weight: 500;
+    border-radius: var(--border-radius-sm); /* Mensagem com borda arredondada */
+    padding: 8px 12px; /* Padding interno */
+    display: inline-block; /* Para o background funcionar corretamente */
+    opacity: 0; /* Começa invisível */
+    transition: opacity var(--transition-medium), background-color var(--transition-medium);
 }
+/* Mostra a mensagem quando tem conteúdo */
+#rating-message:not(:empty) {
+    opacity: 1;
+}
+
+#rating-message.success {
+    background-color: var(--success-bg);
+    color: var(--success-text);
+}
+#rating-message.error {
+    background-color: var(--danger-bg);
+    color: var(--danger-text);
+}
+
 
 #remove-rating-button {
-    background-color: #6c757d; /* Cinza para ação menos destrutiva */
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 4px;
+    background-color: var(--bg-tertiary); /* Fundo mais escuro */
+    color: var(--text-secondary); /* Texto cinza */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+    padding: 9px 18px; /* Mais padding */
+    border-radius: var(--border-radius-md);
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 20px;
     font-size: 0.9em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 500;
+    transition: all var(--transition-medium); /* Transição em tudo */
 }
-#remove-rating-button:hover {
-    background-color: #5a6268;
-    transform: translateY(-1px);
+#remove-rating-button:hover, #remove-rating-button:focus {
+    background-color: var(--danger-bg); /* Fica vermelho no hover */
+    color: var(--danger-text);
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    outline: none;
+}
+#remove-rating-button:active {
+    transform: translateY(0);
+    box-shadow: none;
 }
 
-/* Páginas de Autenticação */
+/* === AUTH PAGES === */
 .auth-page {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 1; /* Ocupa espaço vertical */
-    /* Exemplo de fundo gradiente escuro */
-    background: linear-gradient(to bottom, #181818, #101010);
+    flex-grow: 1;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, #181818 100%); /* Gradiente diagonal */
+    padding: 2rem;
 }
 
 .auth-container {
-    background-color: rgba(28, 28, 28, 0.95); /* Fundo do container */
-    padding: 2.5rem 3rem;
-    border-radius: 8px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.7);
+    background-color: rgba(26, 26, 26, 0.9); /* Fundo container auth */
+    padding: 3rem 3.5rem; /* Mais padding */
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
     width: 100%;
-    max-width: 420px;
+    max-width: 450px; /* Container um pouco maior */
     text-align: center;
-    margin: 2rem; /* Margem para não colar nas bordas em telas pequenas */
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .auth-container h1 {
-    color: #e50914;
-    margin-bottom: 2rem;
+    color: var(--accent-primary);
+    margin-bottom: 2.5rem; /* Mais espaço */
     font-weight: 700;
+    font-size: 2.2rem; /* Título maior */
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem; /* Mais espaço entre campos */
     text-align: left;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
-    color: #aaa;
-    font-weight: 400;
+    margin-bottom: 0.6rem;
+    color: var(--text-secondary);
+    font-weight: 500; /* Label mais forte */
     font-size: 0.9rem;
 }
 
 .form-group input {
     width: 100%;
-    padding: 0.9rem 1rem;
-    background-color: #333;
-    border: 1px solid #555;
-    border-radius: 4px;
-    color: #e5e5e5;
+    padding: 1rem 1.1rem; /* Mais padding */
+    background-color: var(--bg-tertiary);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda mais sutil */
+    border-radius: var(--border-radius-md);
+    color: var(--text-primary);
     font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color var(--transition-medium), box-shadow var(--transition-medium);
 }
 .form-group input:focus {
     outline: none;
-    border-color: #e50914;
-    box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.3); /* Glow sutil no foco */
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.3);
 }
 
 .auth-container button[type="submit"] {
     width: 100%;
-    padding: 0.9rem;
-    background-color: #e50914;
+    padding: 1rem; /* Padding do botão */
+    background: linear-gradient(90deg, var(--accent-primary) 0%, #f62e38 100%); /* Gradiente no botão */
     color: white;
     border: none;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    font-weight: 700;
+    border-radius: var(--border-radius-md);
+    font-size: 1.15rem; /* Botão maior */
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-    margin-top: 1.5rem; /* Espaço acima do botão */
+    transition: all var(--transition-medium);
+    margin-top: 2rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
 }
 
-.auth-container button[type="submit"]:hover {
-    background-color: #f40612;
+.auth-container button[type="submit"]:hover, .auth-container button[type="submit"]:focus {
+    filter: brightness(1.15); /* Mais brilho no hover */
+    box-shadow: 0 6px 15px rgba(229, 9, 20, 0.4);
+    transform: translateY(-2px);
+    outline: none;
 }
 .auth-container button[type="submit"]:active {
-    transform: scale(0.98); /* Efeito de clique */
+    transform: translateY(0) scale(0.98);
+    filter: brightness(1);
+    box-shadow: 0 2px 5px rgba(229, 9, 20, 0.3);
 }
 
 
 .auth-container p {
-    margin-top: 1.5rem;
-    color: #aaa;
+    margin-top: 2rem; /* Mais espaço */
+    color: var(--text-secondary);
     font-size: 0.9rem;
 }
 
 .auth-container p a {
-    color: #fff;
+    color: var(--link-color); /* Link com cor padrão */
     font-weight: 500;
 }
 .auth-container p a:hover {
-    color: #ccc;
+    color: var(--link-hover);
+    text-decoration: underline;
 }
 
-/* --- Estilos da Página de Perfil --- */
+/* Mensagens de Feedback Auth */
+.auth-container .message {
+    margin-top: 1.5rem;
+    font-weight: 500;
+    min-height: 1.2em;
+    font-size: 0.9em;
+    padding: 10px 15px; /* Padding maior */
+    border-radius: var(--border-radius-sm);
+    text-align: center;
+}
+.auth-container .message.error {
+    color: var(--danger-text);
+    background-color: var(--danger-bg);
+}
+.auth-container .message.success {
+    color: var(--success-text);
+    background-color: var(--success-bg);
+}
 
+
+/* === PROFILE PAGE === */
 .profile-page {
-    /* Usa o padding padrão do main */
+    /* Herda padding do main */
 }
 
 .profile-page h2#profile-title {
-    /* Usa o estilo base de h2, mas pode ser sobrescrito */
-    margin-bottom: 2rem; /* Mais espaço abaixo do título do perfil */
-    font-size: 2rem; /* Tamanho maior */
-    font-weight: 500;
-    /* Exemplo: mudar a cor da borda */
-    border-left-color: #5fa8d3;
+    margin-bottom: 2.5rem;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-left: 5px solid var(--accent-secondary); /* Usa cor secundária no perfil */
+    padding-left: 1rem;
 }
 
 #rated-items-section {
-    margin-top: 2rem; /* Espaço acima da seção de avaliados */
+    margin-top: 2.5rem;
 }
 
 #rated-items-section h3 {
-    font-size: 1.5rem;
-    font-weight: 400;
-    margin-bottom: 1.5rem;
-    color: #e0e0e0;
+    font-size: 1.6rem; /* Título da seção maior */
+    font-weight: 500;
+    margin-bottom: 1.8rem;
+    color: var(--text-primary);
+    opacity: 0.9;
 }
 
-/* Ajusta a grade para itens avaliados */
 .rated-items-grid {
-    /* Herda o estilo de .items-grid por padrão */
-    /* Pode ajustar se necessário */
-     gap: 1.2rem;
-    /* grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); */ /* Ou cards menores */
+    /* Herda de .items-grid */
+    gap: 1.8rem; /* Espaçamento um pouco diferente no perfil */
 }
 
-/* Estilo específico para o card no perfil */
 .rated-item-card {
-    /* Herda estilos de .item-card */
-    background-color: #222; /* Fundo ligeiramente diferente */
-     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4); /* Sombra mais sutil */
+    /* Herda .item-card */
+    background-color: var(--bg-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shadow-sm);
 }
-.rated-item-card:hover,
-.rated-item-card:focus-within {
-     transform: translateY(-3px) scale(1.02); /* Efeito hover mais sutil */
-     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+.rated-item-card:hover, .rated-item-card:focus-within {
+    transform: scale(1.04); /* Efeito hover sutil */
+    box-shadow: var(--shadow-md);
+}
+/* Focus visible para card no perfil */
+.rated-item-card:focus-visible {
+     outline: 2px solid var(--accent-secondary);
+     outline-offset: 3px;
+     box-shadow: var(--shadow-md), 0 0 0 3px rgba(108, 92, 231, 0.3);
+     transform: scale(1.04);
 }
 
 
 .rated-item-card .info {
-    /* Ajustes no padding ou espaçamento interno */
-    padding: 0.8rem;
-    text-align: center; /* Centraliza o texto no card do perfil */
+    padding: 1rem;
+    text-align: center;
 }
 
 .rated-item-card h3 {
-     /* Talvez fonte menor se o card for menor */
-    font-size: 0.95rem;
-    min-height: 2.3em; /* Ajusta altura mínima */
+    font-size: 1rem;
+    min-height: 2.4em; /* Altura ajustada */
+    line-height: 1.3;
 }
 
-/* Estilo para mostrar a nota do usuário */
 .rated-item-card .user-rating {
-    font-size: 0.9rem;
-    font-weight: 700; /* Destaca a nota */
-    color: #f5c518; /* Amarelo para a nota */
-    margin-top: 0.5rem; /* Espaço acima da nota */
+    font-size: 1rem; /* Nota maior */
+    font-weight: 700;
+    color: var(--star-color);
+    margin-top: 0.8rem; /* Mais espaço */
+    display: flex; /* Alinha estrela e nota */
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
 }
+.rated-item-card .user-rating::before { /* Adiciona ícone de estrela */
+    content: '\f005'; /* Código Font Awesome para estrela sólida */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    margin-right: 0.3rem; /* Espaço antes do número */
+}
+
 
 .profile-page .back-link {
     display: inline-block;
-    margin-top: 2.5rem; /* Mais espaço antes do link de voltar */
-    padding: 0.6rem 1.2rem;
-    background-color: #333;
-    color: #eee;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+    margin-top: 3rem;
+    padding: 0.8rem 1.5rem; /* Botão maior */
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-radius: var(--border-radius-md);
+    transition: all var(--transition-medium);
     font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
-.profile-page .back-link:hover {
-    background-color: #444;
-    color: #fff;
+.profile-page .back-link:hover, .profile-page .back-link:focus {
+    background-color: var(--accent-secondary); /* Cor secundária no hover */
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3);
+    border-color: transparent;
+    outline: none;
 }
-
-
-/* Mensagens de Feedback (Geral) */
-.message {
-    margin-top: 1rem;
-    font-weight: 500;
-    min-height: 1.2em; /* Evita pulos de layout */
-    font-size: 0.9em;
-    padding: 5px 8px; /* Adiciona um leve padding */
-    border-radius: 3px;
-}
-.message.error {
-    color: #f8d7da;
-    background-color: rgba(114, 28, 36, 0.5); /* Fundo semi-transparente */
-}
-.message.success {
-    color: #d4edda;
-    background-color: rgba(21, 87, 36, 0.5); /* Fundo semi-transparente */
+.profile-page .back-link:active {
+    transform: translateY(0);
+    box-shadow: none;
 }
 
-
-/* Footer */
+/* === FOOTER === */
 footer {
     text-align: center;
-    padding: 1.5rem 5%;
-    margin-top: 3rem; /* Garante espaço acima do footer */
-    background-color: #0c0c0c; /* Footer mais escuro */
-    border-top: 1px solid #222;
-    font-size: 0.85rem;
-    color: #888; /* Texto mais sutil */
+    padding: 2rem 5%; /* Mais padding */
+    margin-top: 4rem; /* Mais espaço acima */
+    background-color: var(--bg-primary); /* Mesmo fundo do body */
+    border-top: 1px solid rgba(255, 255, 255, 0.08); /* Borda mais sutil */
+    font-size: 0.88rem; /* Texto um pouco maior */
+    color: var(--text-secondary);
+    opacity: 0.8; /* Leve transparência */
 }
+footer p {
+    margin-bottom: 0.5rem; /* Espaço entre linhas do footer */
+}
+footer p:last-child {
+    margin-bottom: 0;
+}
+
 footer a {
-    color: #aaa; /* Links do footer mais discretos */
+    color: var(--text-secondary); /* Link discreto */
+    font-weight: 500;
 }
-footer a:hover {
-    color: #fff;
+footer a:hover, footer a:focus {
+    color: var(--text-primary); /* Fica mais claro no hover */
+    text-decoration: underline;
 }
 
-/* ------------------------- */
-/* Media Queries (FINAL)     */
-/* ------------------------- */
+/* === RESPONSIVENESS === */
+@media (max-width: 1024px) {
+    main { padding: 2rem 5%; }
+    .items-grid { gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr)); }
+    .rated-items-grid { gap: 1.5rem; }
+     #modal-body img { width: 220px; }
+     #modal-body .details h2 { font-size: 2.2rem; }
+}
+
+
 @media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 1rem 4%;
-    }
-    header nav {
-        width: 100%;
-        justify-content: space-between;
-        margin-top: 0.8rem;
-        gap: 0.8rem;
-    }
-    .search-container {
-       max-width: none;
-       min-width: 150px;
-    }
+    html { font-size: 15px; } /* Reduz um pouco a fonte base */
+    header { padding: 1rem 4%; flex-direction: column; align-items: stretch; }
+    header nav { width: 100%; justify-content: space-between; margin-top: 1rem; gap: 1rem; }
+    .search-container { max-width: none; min-width: 180px; }
+    main { padding: 2rem 4%; }
+    main h2 { font-size: 1.8rem; }
+    .items-grid { gap: 1.2rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr)); }
 
-    main {
-        padding: 1.5rem 4%;
-    }
-    main h2 { /* Estilo base para h2 em mobile */
-        font-size: 1.6rem;
-    }
+    .modal-content { width: 95%; padding: 30px 25px; margin: 8% auto; }
+     #modal-body { flex-direction: column; align-items: center; text-align: center; gap: 25px; }
+     #modal-body img { width: 180px; max-width: 60%; }
+     #modal-body .details h2 { font-size: 2rem; text-align: center; }
+     .stars { font-size: 2rem; }
 
-    .items-grid { /* Grid principal */
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 1rem;
-    }
+    .auth-container { padding: 2.5rem 2rem; }
 
-    .modal-content {
-        width: 95%;
-        padding: 25px;
-        margin: 10% auto;
-    }
-     #modal-body {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 20px;
-    }
-    #modal-body img {
-        width: 150px;
-        max-width: 50%;
-    }
-    #modal-body .details h2 {
-         font-size: 1.8rem; /* Ajuste para mobile */
-         text-align: center;
-    }
-    .stars {
-        justify-content: center; /* Centraliza estrelas no modal */
-        font-size: 1.8rem; /* Estrelas um pouco menores */
-    }
-
-    .auth-container {
-        padding: 2rem 1.5rem;
-    }
-
-    /* Perfil Mobile */
-    .profile-page h2#profile-title {
-        font-size: 1.8rem;
-    }
-     #rated-items-section h3 {
-        font-size: 1.3rem;
-    }
-     .rated-items-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 1rem;
-     }
+    .profile-page h2#profile-title { font-size: 2rem; }
+    #rated-items-section h3 { font-size: 1.4rem; }
+    .rated-items-grid { gap: 1.2rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); }
 }
 
 @media (max-width: 480px) {
-    header h1 {
-        font-size: 1.6rem;
-        text-align: center;
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 0.8rem; /* Aumenta espaço abaixo do título */
-    }
-    header nav {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    #user-status {
-        justify-content: center;
-        order: 2; /* Coloca status abaixo da busca */
-        margin-top: 0.5rem;
-    }
-     .search-container {
-        order: 1; /* Coloca busca acima do status */
-    }
+    html { font-size: 14px; } /* Reduz mais a fonte base */
+    header { padding: 1rem 3%; }
+    header h1 { font-size: 1.7rem; text-align: center; width: 100%; margin-right: 0; margin-bottom: 1rem; }
+    header nav { flex-direction: column; align-items: stretch; margin-top: 0.5rem; }
+    #user-status { justify-content: center; order: 2; margin-top: 0.8rem; }
+    .search-container { order: 1; }
 
-    main h2 { /* Estilo base para h2 em mobile pequeno */
-        font-size: 1.4rem;
-        border-left-width: 3px;
-        padding-left: 0.6rem;
-    }
+    main { padding: 1.5rem 3%; }
+    main h2 { font-size: 1.6rem; border-left-width: 4px; padding-left: 0.8rem; }
+    .items-grid { gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 130px), 1fr)); }
+    .item-card h3 { font-size: 0.9rem; min-height: 2.3em; }
 
-    .items-grid { /* Grid principal */
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 0.8rem;
-    }
-     .item-card h3 {
-        font-size: 0.9rem;
-        min-height: 2.2em;
-    }
+    .modal-content { padding: 25px 15px; margin: 15% auto 5%; }
+    #modal-body img { width: 150px; max-width: 70%; }
+    #modal-body .details h2 { font-size: 1.8rem; }
+    .stars { font-size: 1.8rem; gap: 5px; }
+    #rating-section { padding-top: 20px; margin-top: 25px; }
+    #rating-section h3 { font-size: 1.2rem; margin-bottom: 15px; }
 
-     .modal-content {
-         padding: 20px 15px;
-     }
-      #modal-body .details h2 {
-         font-size: 1.6rem; /* Ajuste modal mobile pequeno */
-     }
-     #rating-section .stars {
-        font-size: 1.7rem;
-        gap: 3px;
-     }
+    .auth-container { padding: 2rem 1.5rem; margin: 1rem; }
+    .auth-container h1 { font-size: 1.9rem; margin-bottom: 2rem; }
+    .form-group input { padding: 0.9rem 1rem; }
+    .auth-container button[type="submit"] { padding: 0.9rem; font-size: 1.05rem; }
 
-     .auth-container {
-        padding: 1.5rem 1rem;
-        margin: 1rem; /* Reduz margem externa */
-     }
-     .auth-container h1 {
-         font-size: 1.8rem; /* Reduz título auth */
-         margin-bottom: 1.5rem;
-     }
-     .form-group input {
-         padding: 0.8rem 0.9rem;
-     }
-      .auth-container button[type="submit"] {
-          padding: 0.8rem;
-          font-size: 1rem;
-      }
+    .profile-page { padding: 1.5rem 3%; }
+    .profile-page h2#profile-title { font-size: 1.8rem; }
+    #rated-items-section h3 { font-size: 1.3rem; }
+    .rated-items-grid { gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 120px), 1fr)); }
+    .rated-item-card .info { padding: 0.8rem; }
+    .rated-item-card h3 { font-size: 0.9rem; }
+    .rated-item-card .user-rating { font-size: 0.9rem; }
+    .profile-page .back-link { width: 100%; text-align: center; padding: 0.8rem; font-size: 0.95rem; }
 
-      /* Perfil Mobile Pequeno */
-       .profile-page {
-        padding: 1.5rem 4%;
-    }
-     .profile-page h2#profile-title {
-        font-size: 1.6rem;
-    }
-     #rated-items-section h3 {
-        font-size: 1.2rem;
-    }
-     .rated-items-grid {
-        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-        gap: 0.7rem;
-     }
-      .rated-item-card .info {
-         padding: 0.6rem;
-      }
-       .rated-item-card h3 {
-         font-size: 0.85rem;
-         min-height: 2.1em; /* Ajuste fino */
-     }
-      .rated-item-card .user-rating {
-         font-size: 0.8rem;
-     }
-     .profile-page .back-link {
-         width: 100%; /* Ocupa largura toda */
-         text-align: center;
-         padding: 0.7rem;
-     }
+     footer { padding: 1.5rem 3%; font-size: 0.8rem; }
 }
